@@ -57,6 +57,7 @@ cc_library(
     deps = [
         ":ptypes",
         ":umachine",
+        ":urename",
         ":utf",
     ],
 )
