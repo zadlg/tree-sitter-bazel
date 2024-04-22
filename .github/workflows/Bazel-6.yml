@@ -1,0 +1,42 @@
+name: Bazel 6 tests
+
+on:
+  push:
+    branches:
+      - "main"
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  buildifier:
+    uses: ./.github/workflows/buildifier.yml
+  bazel-6:
+    strategy:
+      fail-fast: false
+      matrix:
+        compilation-mode: [dbg, fastbuild, opt]
+        target:
+          - macos-latest
+          - macos-14
+    runs-on: ${{ matrix.target }}
+    needs: [buildifier]
+    steps:
+      - name: Setup bazel
+        uses: bazel-contrib/setup-bazel@0.8.1
+        with:
+          bazelisk-cache: true
+          disk-cache: ${{ github.workflow }}
+          bazelisk-version: 1.19.0
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build with Bazel
+        run: |
+          bazel build --config=buildbuddy \
+            -c ${{ matrix.compilation-mode }} \
+            --remote_header=x-buildbuddy-api-key="${{ secrets.BUILDBUDDY_API_KEY }}" \
+            ...
