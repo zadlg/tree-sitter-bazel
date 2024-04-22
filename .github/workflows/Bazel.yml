@@ -1,5 +1,3 @@
-name: Bazel 6 tests
-
 on:
   push:
     branches:
@@ -17,19 +15,27 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        bazel_version:
+          - 6.5.0
+          - 7.1.1
         compilation-mode: [dbg, fastbuild, opt]
         target:
           - macos-latest
           - macos-14
+        bzlmod:
+          - enable_bzlmod
+          - noenable_bzlmod
     runs-on: ${{ matrix.target }}
     needs: [buildifier]
-    name: 6/${{ matrix.target }}/${{ matrix.compilation-mode }}
+    env:
+      USE_BAZEL_VERSION: ${{ matrix.bazel_version }}
+    name: ${{ matrix.bazel_version }}/${{ matrix.target }}/${{ matrix.compilation-mode }}/${{ matrix.bzlmod }}
     steps:
       - name: Setup bazel
         uses: bazel-contrib/setup-bazel@0.8.1
         with:
           bazelisk-cache: true
-          disk-cache: ${{ github.workflow }}-${{ matrix.target }}-${{ matrix.compilation-mode }}
+          disk-cache: ${{ github.workflow }}-${{ matrix.target }}-${{ matrix.compilation-mode }}-${{ matrix.bzlmod }}
           bazelisk-version: 1.19.0
 
       - name: Checkout code
@@ -39,5 +45,6 @@ jobs:
         run: |
           bazel build --config=buildbuddy \
             -c ${{ matrix.compilation-mode }} \
+            --${{ matrix.bzlmod }} \
             --remote_header=x-buildbuddy-api-key="${{ secrets.BUILDBUDDY_API_KEY }}" \
             ...

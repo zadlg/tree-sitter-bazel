@@ -1,5 +1,5 @@
 actions:
-  - name: "Bazel 6 dbg"
+  - name: "Bazel 6 dbg without Bzlmod"
     triggers:
       push:
         branches:
@@ -9,9 +9,9 @@ actions:
           - "*"
     user: "buildbuddy"
     bazel_commands:
-      - "build -c dbg --config buildbuddy //..."
+      - "build -c dbg --noenable_bzlmod --config buildbuddy //..."
 
-  - name: "Bazel 6 fastbuild"
+  - name: "Bazel 6 fastbuild without Bzlmod"
     triggers:
       push:
         branches:
@@ -21,9 +21,9 @@ actions:
           - "*"
     user: "buildbuddy"
     bazel_commands:
-      - "build -c fastbuild --config buildbuddy //..."
+      - "build -c fastbuild --noenable_bzlmod --config buildbuddy //..."
 
-  - name: "Bazel 6 opt"
+  - name: "Bazel 6 opt without Bzlmod"
     triggers:
       push:
         branches:
@@ -33,5 +33,80 @@ actions:
           - "*"
     user: "buildbuddy"
     bazel_commands:
-      - "build -c opt --config buildbuddy //..."
+      - "build -c opt --noenable_bzlmod --config buildbuddy //..."
 
+
+  - name: "Bazel 6 dbg with Bzlmod"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "build -c dbg --enable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 6 fastbuild with Bzlmod"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "build -c fastbuild --enable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 6 opt with Bzlmod"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "build -c opt --enable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 7 dbg"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 7.1.1"
+      - "build -c dbg --noenable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 7 fastbuild"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 7.1.1"
+      - "build -c fastbuild --noenable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 7 opt"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 7.1.1"
+      - "build -c opt --noenable_bzlmod --config buildbuddy //..."
