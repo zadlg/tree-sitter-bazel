@@ -37,6 +37,7 @@ cc_library(
 cc_library(
     name = "utf8",
     hdrs = map(["utf8.h"]),
+    strip_include_prefix = "/lib/src/",
     visibility = ["@tree-sitter//lib/src:__pkg__"],
     deps = [
         ":umachine",
@@ -47,6 +48,7 @@ cc_library(
 cc_library(
     name = "utf16",
     hdrs = map(["utf16.h"]),
+    strip_include_prefix = "/lib/src/",
     visibility = ["@tree-sitter//lib/src:__pkg__"],
     deps = [
         ":umachine",
