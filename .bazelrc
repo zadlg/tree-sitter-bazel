@@ -7,7 +7,7 @@ common:buildbuddy --nolegacy_important_outputs
 common:buildbuddy --noslim_profile
 common:buildbuddy --experimental_profile_include_target_label
 common:buildbuddy --experimental_profile_include_primary_output
-common:buildbuddy --experimental_remote_build_event_upload=minimal
+common:buildbuddy --remote_build_event_upload=minimal
 common:buildbuddy --build_metadata=VISIBILITY=PUBLIC
 
 test --test_output=errors

@@ -16,10 +16,18 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 # Default tree-sitter version to use.
-_DEFAULT_VERSION = "0.22.5"
+DEFAULT_VERSION = "0.22.5"
 
 # SHA-256 sum of the default tree-sitter version GitHub archive.
-_DEFAULT_SHA256SUM = "6bc22ca7e0f81d77773462d922cf40b44bfd090d92abac75cb37dbae516c2417"
+DEFAULT_SHA256SUM = "6bc22ca7e0f81d77773462d922cf40b44bfd090d92abac75cb37dbae516c2417"
+
+# Integrity in Subresource Integrity format.
+# This can be obtained by doing:
+# ```shell
+# export DGST=384
+# curl -L "${URL}" -s | shasum -a "${DGST}" | cut -f1 -d' ' | xxd -r -p | base64 | (echo -ne "sha${DGST}-" && "cat" -)
+# ```
+DEFAULT_INTEGRITY = "sha384-Eh5nRJC/CLAskWWZLAlh9WQmmL4J018tu1zNvaUDyjfHfelxQtNYX+wA3orhUaxN"
 
 # Format for URLs to GitHub archives.
 _URL_FMT = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v{version}.tar.gz"
@@ -41,9 +49,56 @@ def tree_sitter_repositories():
         ],
     )
 
+def tree_sitter_build_http_archive_arguments(
+        version = DEFAULT_VERSION,
+        sha256 = DEFAULT_SHA256SUM,
+        integrity = DEFAULT_INTEGRITY,
+        url = None,
+        strip_prefix = None):
+    """Builds the argument for `http_archive`.
+
+    Args:
+      version: str
+        Version to use.
+      sha256: str
+        SHA-256 sum.
+      url: str
+        URL.
+      strip_prefix: str
+        Strip prefix.
+
+    Returns: dict
+      Arguments for `http_archive`. `name` is missing.
+    """
+    if url == None:
+        url = _URL_FMT.format(version = version)
+    elif url != None and version != None:
+        fail("`url` and `version` are mutually exclusive.")
+
+    if strip_prefix == None:
+        if version != None:
+            strip_prefix = _STRIP_PREFIX_FMT.format(version = version)
+        else:
+            print("WARNING: no `strip_prefix` will be used.")
+
+    if sha256 == None and integrity == None:
+        print("WARNING: `sha256` and`integrity` SHOULD NOT be None.")
+
+    if integrity != None:
+        sha256 = None
+
+    return {
+        "urls": [url],
+        "sha256": sha256,
+        "integrity": integrity,
+        "strip_prefix": strip_prefix,
+        "build_file_content": """exports_files(glob(["lib/**"]))""",
+    }
+
 def tree_sitter_sources(
-        version = _DEFAULT_VERSION,
-        sha256 = _DEFAULT_SHA256SUM,
+        version = DEFAULT_VERSION,
+        sha256 = DEFAULT_SHA256SUM,
+        integrity = DEFAULT_INTEGRITY,
         url = None,
         strip_prefix = None):
     """Fetches the archive containing the tree-sitter source code.
@@ -58,25 +113,16 @@ def tree_sitter_sources(
       strip_prefix: str
         Strip prefix.
     """
-    if url == None:
-        url = _URL_FMT.format(version = version)
-    elif url != None and version != None:
-        fail("`url` and `version` are mutually exclusive.")
-
-    if strip_prefix == None:
-        if version != None:
-            strip_prefix = _STRIP_PREFIX_FMT.format(version = version)
-        else:
-            print("WARNING: no `strip_prefix` will be used.")
-
-    if sha256 == None:
-        print("WARNING: `sha256` SHOULD NOT be None.")
+    args = tree_sitter_build_http_archive_arguments(
+        version = version,
+        sha256 = sha256,
+        integrity = integrity,
+        url = url,
+        strip_prefix = strip_prefix,
+    )
 
     maybe(
         http_archive,
         name = "tree-sitter-raw",
-        urls = [url],
-        sha256 = sha256,
-        strip_prefix = strip_prefix,
-        build_file_content = """exports_files(glob(["lib/**"]))""",
+        **args
     )
