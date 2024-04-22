@@ -1,0 +1,13 @@
+"zadlg/tree-sitter-bazel"
+
+module(
+    name = "tree-sitter",
+    version = "0.22.5",
+    compatibility_level = 1,
+    repo_name = "tree-sitter",
+)
+
+bazel_dep(name = "bazel_skylib", version = "1.5.0")
+
+tree_sitter_source_code = use_extension(":extensions.bzl", "tree_sitter_source_code")
+use_repo(tree_sitter_source_code, "tree-sitter-raw")

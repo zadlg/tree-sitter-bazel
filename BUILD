@@ -26,3 +26,8 @@ cc_library(
         "@tree-sitter//lib/include/tree_sitter:api",
     ],
 )
+
+sh_binary(
+    name = "set_bazel_version",
+    srcs = [".set_bazel_version.sh"],
+)
