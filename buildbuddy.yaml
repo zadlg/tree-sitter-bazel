@@ -1,0 +1,40 @@
+actions:
+  - name: "Bazel 6 dbg"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "build -c dbg --config buildbuddy //..."
+      - "test -c dbg --config buildbuddy //..."
+
+  - name: "Bazel 6 fastbuild"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "build -c fastbuild --config buildbuddy //..."
+      - "test -c fastbuild --config buildbuddy //..."
+
+  - name: "Bazel 6 opt"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "build -c opt --config buildbuddy //..."
+      - "test -c opt --config buildbuddy //..."
+

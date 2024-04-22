@@ -1,0 +1,14 @@
+common:buildbuddy --bes_results_url=https://app.buildbuddy.io/invocation/
+common:buildbuddy --bes_backend=grpcs://remote.buildbuddy.io
+common:buildbuddy --remote_cache=grpcs://remote.buildbuddy.io
+common:buildbuddy --remote_timeout=3600
+common:buildbuddy --experimental_remote_cache_compression
+common:buildbuddy --nolegacy_important_outputs
+common:buildbuddy --noslim_profile
+common:buildbuddy --experimental_profile_include_target_label
+common:buildbuddy --experimental_profile_include_primary_output
+common:buildbuddy --experimental_remote_build_event_upload=minimal
+common:buildbuddy --build_metadata=VISIBILITY=PUBLIC
+
+test --test_output=errors
+test --test_summary=short
