@@ -1,0 +1,9 @@
+"zadlg/tree-sitter-bazel"
+
+module(
+    name = "tree-sitter",
+    version = "0.0.0",
+    compatibility_level = 1,
+)
+
+bazel_dep(name = "bazel_skylib", version = "1.5.0")
