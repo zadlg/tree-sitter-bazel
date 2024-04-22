@@ -55,6 +55,7 @@ cc_library(
     strip_include_prefix = "/lib/src/",
     visibility = ["@tree-sitter//lib/src:__pkg__"],
     deps = [
+        ":ptypes",
         ":umachine",
         ":utf",
     ],
