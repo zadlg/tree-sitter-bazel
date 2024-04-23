@@ -40,6 +40,7 @@ jobs:
           curl "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/contents/VERSION" \
             | jq -r ".content" \
             | base64 --decode | (echo -ne 'v' && cat -) > current_version
+          echo "v0.22.4" > current_version
 
       - name: Override the current version if specified in `workflow_dispatch`.
         id: override_current_version
