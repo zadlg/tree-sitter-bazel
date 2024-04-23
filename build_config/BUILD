@@ -29,5 +29,5 @@ bool_flag(
 config_setting(
     name = "implementation_deps_enabled",
     values = {"experimental_cc_implementation_deps": "1"},
-    visibility = ["@tree-sitter//:__pkg__"],
+    visibility = ["@tree-sitter-bazel//:__pkg__"],
 )

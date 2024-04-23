@@ -74,16 +74,16 @@ def in_pkg_srcs(filepaths, root = _DEFAULT_ROOT_LABEL):
 def use_defines_features():
     """Returns some values for `defines`, depending on enabled features.
 
-    See `@tree-sitter//features` sub-packages for supported features.
+    See `@tree-sitter-label//build_config` sub-packages for supported features.
     See [`cc_library::defines`](https://bazel.build/reference/be/c-cpp#cc_library.defines).
 
     Returns: list[str]
       List of defines depending on which features has been enabled.
     """
     return select({
-        "@tree-sitter//build_config/hide_symbols:enabled": ["TREE_SITTER_HIDE_SYMBOLS"],
+        "@tree-sitter-bazel//build_config/hide_symbols:enabled": ["TREE_SITTER_HIDE_SYMBOLS"],
         "//conditions:default": [],
     }) + select({
-        "@tree-sitter//build_config/wasm:enabled": ["TREE_SITTER_FEATURE_WASM"],
+        "@tree-sitter-bazel//build_config/wasm:enabled": ["TREE_SITTER_FEATURE_WASM"],
         "//conditions:default": [],
     })
