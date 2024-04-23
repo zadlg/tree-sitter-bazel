@@ -1,0 +1,47 @@
+name: Check latest release version of tree-sitter.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to compare with the latest release (for test purposes)'
+        required: false
+        default: '0.22.4'
+
+jobs:
+  check-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fetch the latest release version of tree-sitter.
+        id: fetch_latest_release
+        run: |
+          gh release list \
+            --repo tree-sitter/tree-sitter \
+            -L 1 \
+            -O desc \
+            --json tagName \
+            --jq '.[0].tagName' > latest_version
+
+      - name: Fetch the release currently supported by tree-sitter-bazel.
+        id: fetch_current_supported_release
+        run: |
+          curl "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/contents/VERSION" \
+            | jq -r ".content" \
+            | base64 --decode | (echo -ne 'v' && cat -) > current_version
+
+      - name: Override the current version if specified in `workflow_dispatch`.
+        id: override_current_version
+        if: "${{ github.event.inputs.version != '' }}"
+        run: echo "v${{ github.event.inputs.version }}" > current_version
+
+      - name: Compare versions.
+        id: compare_versions
+        run: |
+          LATEST_VERSION="$(<latest_version)"
+          CURRENT_VERSION="$(<current_version)"
+          printf 'Current version: %s\nLatest version: %s\n' "${CURRENT_VERSION}" "${LATEST_VERSION}"
+          if [ ! "${LATEST_VERSION}" = "${CURRENT_VERSION}" ]; then
+            echo "A new release is available: ${LATEST_VERSION}"
+          else
+            echo "Up to date with ${CURRENT_VERSION}"
+          fi
