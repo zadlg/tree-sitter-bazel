@@ -12,6 +12,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+
 cc_library(
     name = "tree-sitter",
     implementation_deps = [
@@ -30,4 +32,10 @@ cc_library(
 sh_binary(
     name = "set_bazel_version",
     srcs = [".set_bazel_version.sh"],
+)
+
+bzl_library(
+    name = "version",
+    srcs = ["version.bzl"],
+    visibility = ["//visibility:public"],
 )
