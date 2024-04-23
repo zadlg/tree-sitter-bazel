@@ -15,7 +15,7 @@
 config_setting(
     name = "enabled",
     flag_values = {
-        "@tree-sitter//build_config:wasm": "true",
+        "@tree-sitter-bazel//build_config:wasm": "true",
     },
-    visibility = ["@tree-sitter//:__subpackages__"],
+    visibility = ["@tree-sitter-bazel//:__subpackages__"],
 )

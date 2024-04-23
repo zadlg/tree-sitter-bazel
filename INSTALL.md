@@ -14,7 +14,7 @@ load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 _VERSION_TAG = "x.y.z"
 maybe(
   http_archive,
-  name = "tree-sitter",
+  name = "tree-sitter-bazel",
   urls = ["https://github.com/zadlg/tree-sitter-bazel/archive/refs/tags/v{version}.tar.gz".format(
       version = _VERSION_TAG,
   ),
@@ -50,8 +50,8 @@ Add the following to your `MODULE.bazel` file:
 
 ```starlark
 _VERSION_TAG = "x.y.z"
-bazel_dep(name = "tree-sitter", version = _VERSION_TAG)
-archive_override("tree-sitter",
+bazel_dep(name = "tree-sitter-bazel", version = _VERSION_TAG)
+archive_override("tree-sitter-bazel",
     urls = ["https://github.com/zadlg/tree-sitter-bazel/archive/refs/tags/v{version}.tar.gz".format(
         version = _VERSION_TAG,
     )],

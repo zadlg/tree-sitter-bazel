@@ -17,15 +17,15 @@ load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
 cc_library(
     name = "tree-sitter",
     implementation_deps = [
-        "@tree-sitter//lib/src:lib",
+        "@tree-sitter-bazel//lib/src:lib",
     ],
     target_compatible_with = select({
-        "@tree-sitter//build_config:implementation_deps_enabled": [],
+        "@tree-sitter-bazel//build_config:implementation_deps_enabled": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
     visibility = ["//visibility:public"],
     deps = [
-        "@tree-sitter//lib/include/tree_sitter:api",
+        "@tree-sitter-bazel//lib/include/tree_sitter:api",
     ],
 )
 

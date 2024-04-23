@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@tree-sitter//:rules.bzl", map = "in_pkg_srcs")
+load("@tree-sitter-bazel//:rules.bzl", map = "in_pkg_srcs")
 
 cc_library(
     name = "utf",
@@ -42,7 +42,7 @@ cc_library(
     name = "utf8",
     hdrs = map(["utf8.h"]),
     strip_include_prefix = "/lib/src/",
-    visibility = ["@tree-sitter//lib/src:__pkg__"],
+    visibility = ["@tree-sitter-bazel//lib/src:__pkg__"],
     deps = [
         ":umachine",
         ":utf",
@@ -53,7 +53,7 @@ cc_library(
     name = "utf16",
     hdrs = map(["utf16.h"]),
     strip_include_prefix = "/lib/src/",
-    visibility = ["@tree-sitter//lib/src:__pkg__"],
+    visibility = ["@tree-sitter-bazel//lib/src:__pkg__"],
     deps = [
         ":ptypes",
         ":umachine",

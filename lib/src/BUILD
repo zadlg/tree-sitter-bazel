@@ -12,9 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@tree-sitter//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
+load("@tree-sitter-bazel//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
 
-_API = "@tree-sitter//lib/include/tree_sitter:api"
+_API = "@tree-sitter-bazel//lib/include/tree_sitter:api"
 
 cc_library(
     name = "alloc",
@@ -117,8 +117,8 @@ cc_library(
     name = "unicode",
     hdrs = map(["unicode.h"]),
     deps = [
-        "@tree-sitter//lib/src/unicode:utf16",
-        "@tree-sitter//lib/src/unicode:utf8",
+        "@tree-sitter-bazel//lib/src/unicode:utf16",
+        "@tree-sitter-bazel//lib/src/unicode:utf8",
     ],
 )
 
@@ -179,7 +179,7 @@ cc_library(
     name = "parser",
     srcs = map(["parser.c"]),
     hdrs = map(["parser.h"]),
-    visibility = ["@tree-sitter//:__pkg__"],
+    visibility = ["@tree-sitter-bazel//:__pkg__"],
     deps = [
         _API,
         ":alloc",
@@ -223,7 +223,7 @@ cc_library(
 
 cc_library(
     name = "lib",
-    visibility = ["@tree-sitter//:__pkg__"],
+    visibility = ["@tree-sitter-bazel//:__pkg__"],
     deps = [
         ":alloc",
         ":get_changed_ranges",
