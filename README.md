@@ -19,14 +19,14 @@ See [INSTALL.md](INSTALL.md).
 
 The following targets are exposed by this repository:
 
-  - `@tree-sitter//:tree-sitter` (or simply `@tree-sitter`): the tree-sitter C API.
+  - `@tree-sitter-bazel//:tree-sitter`: the tree-sitter C API.
 
 ## Build configurations<a name="build-config"></a>
 
 The following build configuration are available:
 
-  - `@tree-sitter//build_config:wasm`: enable wasm (**not yet supported**).
-  - `@tree-sitter//build_config:hide_symbols`: hide symbols (default: _false_).
+  - `@tree-sitter-bazel//build_config:wasm`: enable wasm (**not yet supported**).
+  - `@tree-sitter-bazel//build_config:hide_symbols`: hide symbols (default: _false_).
 
 
 [`tree-sitter`]: https://github.com/tree-sitter/tree-sitter

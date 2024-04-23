@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-load("@tree-sitter//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
+load("@tree-sitter-bazel//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
 
 cc_library(
     name = "api",
