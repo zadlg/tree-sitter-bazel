@@ -20,6 +20,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GH_TOKEN: ${{ github.token }}
+    outputs:
+      should-run: ${{ steps.compare_versions.outputs.should-run }}
+      new-version: ${{ steps.compare_versions.outputs.new-version }}
     steps:
       - name: Fetch the latest release version of tree-sitter.
         id: fetch_latest_release
@@ -37,6 +40,7 @@ jobs:
           curl "${GITHUB_API_URL}/repos/${GITHUB_REPOSITORY}/contents/VERSION" \
             | jq -r ".content" \
             | base64 --decode | (echo -ne 'v' && cat -) > current_version
+          echo "v0.22.4" > current_version
 
       - name: Override the current version if specified in `workflow_dispatch`.
         id: override_current_version
@@ -49,8 +53,32 @@ jobs:
           LATEST_VERSION="$(<latest_version)"
           CURRENT_VERSION="$(<current_version)"
           printf 'Current version: %s\nLatest version: %s\n' "${CURRENT_VERSION}" "${LATEST_VERSION}"
-          if [ ! "${LATEST_VERSION}" = "${CURRENT_VERSION}" ]; then
-            echo "A new release is available: ${LATEST_VERSION}"
-          else
+          if [ "${LATEST_VERSION}" = "${CURRENT_VERSION}" ]; then
             echo "Up to date with ${CURRENT_VERSION}"
+            echo "should-run=false" >> $GITHUB_OUTPUT
+            echo "new-version=${LATEST_VERSION}" >> $GITHUB_OUTPUT
+          else
+            echo "A new release is available: ${LATEST_VERSION}"
+            echo "should-run=true" >> $GITHUB_OUTPUT
+            echo "new-version=${LATEST_VERSION}" >> $GITHUB_OUTPUT
           fi
+  open-issue:
+    runs-on: ubuntu-latest
+    needs: check-version
+    if: needs.check-version.outputs.should-run == 'true'
+
+    env:
+      GH_TOKEN: ${{ github.token }}
+      TITLE_FMT: Update to latest release %s
+    steps:
+      - name: Open a new issue if necessary.
+        id: new_issue
+        run: |
+          version="${{ needs.check-version.outputs.new-version }}"
+          title="$(printf "${TITLE_FMT}" "${version}")"
+          issue_id="$(gh issue list --repo "${GITHUB_REPOSITORY} --search 'is:issue is:open "'"${title}"'"' --json number -q '.[0].number')"
+          if [ -n "${issue_id}" ]; then
+            printf 'issue already exists for %s: %u' "${version}" "${issue_id}"
+            exit 0
+          fi
+          gh issue create --title "${title}" --body "See [${version}](https://github.com/tree-sitter/tree-sitter/releases/tag/${version})" --repo "${GITHUB_REPOSITORY}"
