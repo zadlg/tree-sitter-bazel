@@ -8,9 +8,15 @@ on:
         required: false
         default: '0.22.4'
 
+  pull_request:
+    paths:
+      - ".github/workflows/check-new-release.yml"
+
 jobs:
   check-version:
     runs-on: ubuntu-latest
+    env:
+      GH_TOKEN: ${{ github.token }}
     steps:
       - name: Fetch the latest release version of tree-sitter.
         id: fetch_latest_release
