@@ -42,22 +42,15 @@ tree_sitter_dependencies()
 
 ## Using with Bazel >=6 **with** Bzlmod<a name="bazel-with-bzlmod"></a>
 
+`tree-sitter-bazel` is available in [Bazel Central Registry](https://registry.bazel.build/modules/tree-sitter-bazel).
+
 Ensure that `common --enable_bzlmod` is set in your `.bazelrc` file.
 
-(See [`bazel_dep`] and [`archive_override`]).
+(See [`bazel_dep`]).
 
 Add the following to your `MODULE.bazel` file:
 
 ```starlark
 _VERSION_TAG = "x.y.z"
 bazel_dep(name = "tree-sitter-bazel", version = _VERSION_TAG)
-archive_override("tree-sitter-bazel",
-    urls = ["https://github.com/zadlg/tree-sitter-bazel/archive/refs/tags/v{version}.tar.gz".format(
-        version = _VERSION_TAG,
-    )],
-    integrity = "", #  The expected checksum of the archive file, in Subresource Integrity format.
-    strip_prefix = "tree-sitter-bazel-{version}".format(
-        version = _VERSION_TAG,
-    ),
-)
 ```
