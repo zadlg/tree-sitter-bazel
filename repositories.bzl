@@ -16,10 +16,10 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
 
 # Default tree-sitter version to use.
-DEFAULT_VERSION = "0.22.5"
+DEFAULT_VERSION = "0.22.6"
 
 # SHA-256 sum of the default tree-sitter version GitHub archive.
-DEFAULT_SHA256SUM = "6bc22ca7e0f81d77773462d922cf40b44bfd090d92abac75cb37dbae516c2417"
+DEFAULT_SHA256SUM = "e2b687f74358ab6404730b7fb1a1ced7ddb3780202d37595ecd7b20a8f41861f"
 
 # Integrity in Subresource Integrity format.
 # This can be obtained by doing:
@@ -27,7 +27,7 @@ DEFAULT_SHA256SUM = "6bc22ca7e0f81d77773462d922cf40b44bfd090d92abac75cb37dbae516
 # export DGST=384
 # curl -L "${URL}" -s | shasum -a "${DGST}" | cut -f1 -d' ' | xxd -r -p | base64 | (echo -ne "sha${DGST}-" && "cat" -)
 # ```
-DEFAULT_INTEGRITY = "sha384-Eh5nRJC/CLAskWWZLAlh9WQmmL4J018tu1zNvaUDyjfHfelxQtNYX+wA3orhUaxN"
+DEFAULT_INTEGRITY = "sha384-RsrKlJC9SP+wNOJgYhgqB/VIAHK2cehuErEM6dut/io8CKSnt4ygoX0fSh7tEGZs"
 
 # Format for URLs to GitHub archives.
 _URL_FMT = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v{version}.tar.gz"
@@ -36,9 +36,9 @@ _URL_FMT = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v{versi
 _STRIP_PREFIX_FMT = "tree-sitter-{version}"
 
 def tree_sitter_repositories():
-    # Release date: Nov 6 2023
-    _VERSION = "1.5.0"
-    _SHA256 = "cd55a062e763b9349921f0f5db8c3933288dc8ba4f76dd9416aac68acee3cb94"
+    # Release date: Apr 25 2024
+    _VERSION = "1.6.1"
+    _SHA256 = "9f38886a40548c6e96c106b752f242130ee11aaa068a56ba7e56f4511f33e4f2"
     maybe(
         http_archive,
         name = "bazel_skylib",
