@@ -18,7 +18,7 @@ jobs:
       matrix:
         bazel_version:
           - 6.5.0
-          - 7.1.1
+          - 7.1.2
         compilation-mode: [dbg, fastbuild, opt]
         target:
           - macos-latest
