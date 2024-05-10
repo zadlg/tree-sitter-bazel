@@ -82,7 +82,7 @@ actions:
           - "*"
     user: "buildbuddy"
     bazel_commands:
-      - "run --config buildbuddy //:set_bazel_version -- 7.1.1"
+      - "run --config buildbuddy //:set_bazel_version -- 7.1.2"
       - "build -c dbg --noenable_bzlmod --config buildbuddy //..."
 
   - name: "Bazel 7 fastbuild"
@@ -95,7 +95,7 @@ actions:
           - "*"
     user: "buildbuddy"
     bazel_commands:
-      - "run --config buildbuddy //:set_bazel_version -- 7.1.1"
+      - "run --config buildbuddy //:set_bazel_version -- 7.1.2"
       - "build -c fastbuild --noenable_bzlmod --config buildbuddy //..."
 
   - name: "Bazel 7 opt"
@@ -108,5 +108,5 @@ actions:
           - "*"
     user: "buildbuddy"
     bazel_commands:
-      - "run --config buildbuddy //:set_bazel_version -- 7.1.1"
+      - "run --config buildbuddy //:set_bazel_version -- 7.1.2"
       - "build -c opt --noenable_bzlmod --config buildbuddy //..."
