@@ -1,3 +1,5 @@
+load("@tree-sitter-bazel//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
+
 # Copyright 2024 github.com/zadlg
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,8 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("@tree-sitter-bazel//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
+package(features = ["layering_check"])
 
 _API = "@tree-sitter-bazel//lib/include/tree_sitter:api"
 
@@ -74,6 +75,7 @@ cc_library(
     hdrs = map(["subtree.h"]),
     deps = [
         _API,
+        ":alloc",
         ":array",
         ":atomic",
         ":error_costs",
@@ -89,7 +91,12 @@ cc_library(
         "tree.h",
     ]),
     hdrs = map(["tree_cursor.h"]),
-    deps = [":subtree"],
+    deps = [
+        ":subtree",
+        _API,
+        ":alloc",
+        ":language",
+    ],
 )
 
 cc_library(
@@ -99,7 +106,11 @@ cc_library(
         "tree_cursor.h",
     ]),
     hdrs = map(["get_changed_ranges.h"]),
-    deps = [":subtree"],
+    deps = [
+        ":error_costs",
+        ":language",
+        ":subtree",
+    ],
 )
 
 cc_library(
@@ -110,7 +121,10 @@ cc_library(
         "wasm_store.h",
     ]),
     hdrs = map(["language.h"]),
-    deps = [":subtree"],
+    deps = [
+        ":subtree",
+        _API,
+    ],
 )
 
 cc_library(
@@ -124,12 +138,16 @@ cc_library(
 
 cc_library(
     name = "lexer",
-    srcs = map(["lexer.c"]),
+    srcs = map([
+        "lexer.c",
+        "parser.h",
+    ]),
     hdrs = map(["lexer.h"]),
     deps = [
         ":length",
         ":subtree",
         ":unicode",
+        _API,
     ],
 )
 
@@ -141,6 +159,7 @@ cc_library(
         _API,
         ":array",
         ":get_changed_ranges",
+        ":length",
         ":subtree",
         ":tree_cursor",
     ],
@@ -150,6 +169,7 @@ cc_library(
     name = "node",
     srcs = map(["node.c"]),
     deps = [
+        ":language",
         ":subtree",
         ":tree",
     ],
@@ -171,7 +191,11 @@ cc_library(
     hdrs = map(["stack.h"]),
     deps = [
         ":alloc",
+        ":array",
+        ":error_costs",
         ":language",
+        ":length",
+        ":subtree",
     ],
 )
 
@@ -188,10 +212,13 @@ cc_library(
         ":clock",
         ":error_costs",
         ":get_changed_ranges",
+        ":language",
+        ":length",
         ":lexer",
         ":reduce_action",
         ":reusable_node",
         ":stack",
+        ":subtree",
         ":tree",
         ":wasm_store",
     ],
@@ -205,6 +232,7 @@ cc_library(
         ":alloc",
         ":array",
         ":language",
+        ":point",
         ":tree_cursor",
         ":unicode",
     ],
