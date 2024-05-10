@@ -1,3 +1,5 @@
+load("@tree-sitter-bazel//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
+
 # Copyright 2024 github.com/zadlg
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -11,8 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
-load("@tree-sitter-bazel//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
+package(features = ["layering_check"])
 
 cc_library(
     name = "api",
