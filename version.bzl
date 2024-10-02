@@ -14,4 +14,4 @@
 
 """A module representing the version of tree-sitter"""
 
-VERSION = "0.23.0"
+VERSION = "0.23.2"
