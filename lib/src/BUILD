@@ -18,6 +18,11 @@ package(features = ["layering_check"])
 _API = "@tree-sitter-bazel//lib/include/tree_sitter:api"
 
 cc_library(
+    name = "ts_assert",
+    hdrs = map(["ts_assert.h"]),
+)
+
+cc_library(
     name = "alloc",
     srcs = map(["alloc.c"]),
     hdrs = map(["alloc.h"]),
@@ -27,7 +32,10 @@ cc_library(
 cc_library(
     name = "array",
     hdrs = map(["array.h"]),
-    deps = [":alloc"],
+    deps = [
+        ":alloc",
+        ":ts_assert",
+    ],
 )
 
 cc_library(
@@ -81,6 +89,7 @@ cc_library(
         ":error_costs",
         ":host",
         ":length",
+        ":ts_assert",
     ],
 )
 
@@ -110,6 +119,7 @@ cc_library(
         ":error_costs",
         ":language",
         ":subtree",
+        ":ts_assert",
     ],
 )
 
@@ -196,6 +206,7 @@ cc_library(
         ":language",
         ":length",
         ":subtree",
+        ":ts_assert",
     ],
 )
 
@@ -220,6 +231,7 @@ cc_library(
         ":stack",
         ":subtree",
         ":tree",
+        ":ts_assert",
         ":wasm_store",
     ],
 )
@@ -231,6 +243,7 @@ cc_library(
         _API,
         ":alloc",
         ":array",
+        ":clock",
         ":language",
         ":point",
         ":tree_cursor",
