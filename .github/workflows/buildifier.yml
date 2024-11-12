@@ -9,7 +9,7 @@ jobs:
     steps:
       - name: Download buildifier.
         run: |
-          curl -L 'https://github.com/bazelbuild/buildtools/releases/download/v7.1.1/buildifier-linux-amd64' > buildifier
+          curl -L 'https://github.com/bazelbuild/buildtools/releases/download/v7.3.1/buildifier-linux-amd64' > buildifier
           chmod +x buildifier
           sudo mv buildifier /usr/bin/
 
