@@ -18,7 +18,8 @@ jobs:
       matrix:
         bazel_version:
           - 6.5.0
-          - 7.4.0
+          - 7.4.1
+          - 8.0.1
         compilation-mode: [dbg, fastbuild, opt]
         target:
           - macos-latest
@@ -33,11 +34,11 @@ jobs:
     name: ${{ matrix.bazel_version }}/${{ matrix.target }}/${{ matrix.compilation-mode }}/${{ matrix.bzlmod }}
     steps:
       - name: Setup bazel
-        uses: bazel-contrib/setup-bazel@0.8.1
+        uses: bazel-contrib/setup-bazel@0.12.1
         with:
           bazelisk-cache: true
           disk-cache: ${{ github.workflow }}-${{ matrix.target }}-${{ matrix.compilation-mode }}-${{ matrix.bzlmod }}
-          bazelisk-version: 1.19.0
+          bazelisk-version: 1.25.0
 
       - name: Checkout code
         uses: actions/checkout@v4
