@@ -35,7 +35,6 @@ actions:
     bazel_commands:
       - "build -c opt --noenable_bzlmod --config buildbuddy //..."
 
-
   - name: "Bazel 6 dbg with Bzlmod"
     triggers:
       push:
@@ -82,8 +81,8 @@ actions:
           - "*"
     user: "buildbuddy"
     bazel_commands:
-      - "run --config buildbuddy //:set_bazel_version -- 7.4.0"
-      - "build -c dbg --noenable_bzlmod --config buildbuddy //..."
+      - "run --config buildbuddy //:set_bazel_version -- 7.4.1"
+      - "build -c dbg --enable_bzlmod --config buildbuddy //..."
 
   - name: "Bazel 7 fastbuild"
     triggers:
@@ -95,8 +94,8 @@ actions:
           - "*"
     user: "buildbuddy"
     bazel_commands:
-      - "run --config buildbuddy //:set_bazel_version -- 7.4.0"
-      - "build -c fastbuild --noenable_bzlmod --config buildbuddy //..."
+      - "run --config buildbuddy //:set_bazel_version -- 7.4.1"
+      - "build -c fastbuild --enable_bzlmod --config buildbuddy //..."
 
   - name: "Bazel 7 opt"
     triggers:
@@ -108,5 +107,44 @@ actions:
           - "*"
     user: "buildbuddy"
     bazel_commands:
-      - "run --config buildbuddy //:set_bazel_version -- 7.4.0"
-      - "build -c opt --noenable_bzlmod --config buildbuddy //..."
+      - "run --config buildbuddy //:set_bazel_version -- 7.4.1"
+      - "build -c opt --enable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 8 dbg"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 8.0.1"
+      - "build -c dbg --enable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 8 fastbuild"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 8.0.1"
+      - "build -c fastbuild --enable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 8 opt"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 8.0.1"
+      - "build -c opt --enable_bzlmod --config buildbuddy //..."
