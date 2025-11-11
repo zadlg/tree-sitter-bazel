@@ -110,3 +110,42 @@ actions:
     bazel_commands:
       - "run --config buildbuddy //:set_bazel_version -- 7.4.0"
       - "build -c opt --noenable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 8 dbg"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 8.0.0"
+      - "build -c dbg --noenable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 8 fastbuild"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 8.0.0"
+      - "build -c fastbuild --noenable_bzlmod --config buildbuddy //..."
+
+  - name: "Bazel 8 opt"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 8.0.0"
+      - "build -c opt --noenable_bzlmod --config buildbuddy //..."
