@@ -33,14 +33,14 @@ jobs:
     name: ${{ matrix.bazel_version }}/${{ matrix.target }}/${{ matrix.compilation-mode }}/${{ matrix.bzlmod }}
     steps:
       - name: Setup bazel
-        uses: bazel-contrib/setup-bazel@0.8.1
+        uses: bazel-contrib/setup-bazel@0.15.0
         with:
           bazelisk-cache: true
           disk-cache: ${{ github.workflow }}-${{ matrix.target }}-${{ matrix.compilation-mode }}-${{ matrix.bzlmod }}
-          bazelisk-version: 1.19.0
+          bazelisk-version: 1.27.0
 
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Build with Bazel
         run: |
