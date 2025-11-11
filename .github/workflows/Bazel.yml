@@ -19,6 +19,7 @@ jobs:
         bazel_version:
           - 6.5.0
           - 7.4.0
+          - 8.0.0
         compilation-mode: [dbg, fastbuild, opt]
         target:
           - macos-latest
