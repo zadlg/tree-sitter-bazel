@@ -36,9 +36,9 @@ _URL_FMT = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v{versi
 _STRIP_PREFIX_FMT = "tree-sitter-{version}"
 
 def tree_sitter_repositories():
-    # Release date: Jun 3 2024
-    _VERSION = "1.7.1"
-    _SHA256 = "bc283cdfcd526a52c3201279cda4bc298652efa898b10b4db0837dc51652756f"
+    # Release date: Sep 25 2025
+    _VERSION = "1.8.2"
+    _SHA256 = "6e78f0e57de26801f6f564fa7c4a48dc8b36873e416257a92bbb0937eeac8446"
     maybe(
         http_archive,
         name = "bazel_skylib",

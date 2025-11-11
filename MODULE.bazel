@@ -21,7 +21,7 @@ module(
     repo_name = "tree-sitter-bazel",
 )
 
-bazel_dep(name = "bazel_skylib", version = "1.7.1")
+bazel_dep(name = "bazel_skylib", version = "1.8.2")
 
 tree_sitter_source_code = use_extension(":extensions.bzl", "tree_sitter_source_code")
 use_repo(tree_sitter_source_code, "tree-sitter-raw")
