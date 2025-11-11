@@ -1,4 +1,4 @@
-# Copyright 2024 github.com/zadlg
+# Copyright 2025 github.com/zadlg
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""A module representing the version of tree-sitter"""
+load("@tree-sitter-bazel//:rules.bzl", map = "in_pkg_srcs")
 
-VERSION = "0.25.10"
+cc_library(
+    name = "endian",
+    hdrs = map(["endian.h"]),
+    strip_include_prefix = "/lib/src/",
+    visibility = ["@tree-sitter-bazel//lib/src:__pkg__"],
+)
