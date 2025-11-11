@@ -141,6 +141,7 @@ cc_library(
     name = "unicode",
     hdrs = map(["unicode.h"]),
     deps = [
+        "@tree-sitter-bazel//lib/src/portable:endian",
         "@tree-sitter-bazel//lib/src/unicode:utf16",
         "@tree-sitter-bazel//lib/src/unicode:utf8",
     ],
@@ -180,6 +181,7 @@ cc_library(
     srcs = map(["node.c"]),
     deps = [
         ":language",
+        ":point",
         ":subtree",
         ":tree",
     ],

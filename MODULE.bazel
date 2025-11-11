@@ -16,7 +16,7 @@
 
 module(
     name = "tree-sitter-bazel",
-    version = "0.24.5",
+    version = "0.25.10",
     compatibility_level = 1,
     repo_name = "tree-sitter-bazel",
 )
