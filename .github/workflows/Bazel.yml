@@ -12,20 +12,21 @@ concurrency:
 jobs:
   buildifier:
     uses: ./.github/workflows/buildifier.yml
-  bazel-6:
+  bazel:
     strategy:
       fail-fast: false
       matrix:
         bazel_version:
           - 6.5.0
           - 7.4.0
+          - 8.0.0
         compilation-mode: [dbg, fastbuild, opt]
         target:
           - macos-latest
           - macos-14
         bzlmod:
           - enable_bzlmod
-          - noenable_bzlmod
+          - noenable_bzlmod 
     runs-on: ${{ matrix.target }}
     needs: [buildifier]
     env:
@@ -44,8 +45,14 @@ jobs:
 
       - name: Build with Bazel
         run: |
+          bzlmod_flags="--${{ matrix.bzlmod }}"
+          if [ "${{ matrix.bazel_version }}" == "8.0.0" ]; then
+            if [ "${{ matrix.bzlmod }}" == "noenable_bzlmod" ]; then
+              bzlmod_flags="${bzlmod_flags} --enable_workspace"
+            fi
+          fi
           bazel build --config=buildbuddy \
             -c ${{ matrix.compilation-mode }} \
-            --${{ matrix.bzlmod }} \
+            ${bzlmod_flags} \
             --remote_header=x-buildbuddy-api-key="${{ secrets.BUILDBUDDY_API_KEY }}" \
             ...

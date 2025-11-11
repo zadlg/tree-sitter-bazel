@@ -2,7 +2,7 @@ name: Buildifier check
 on: [workflow_call]
 
 jobs:
-  bazel-6:
+  buildifier:
     strategy:
       fail-fast: false
     runs-on: ubuntu-latest
