@@ -1,10 +1,10 @@
-# Copyright 2024 github.com/zadlg
+# Copyright 2026 github.com/zadlg
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http:#www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,12 +14,13 @@
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
+load("//:version.bzl", "VERSION")
 
 # Default tree-sitter version to use.
-DEFAULT_VERSION = "0.25.10"
+DEFAULT_VERSION = VERSION
 
 # SHA-256 sum of the default tree-sitter version GitHub archive.
-DEFAULT_SHA256SUM = "ad5040537537012b16ef6e1210a572b927c7cdc2b99d1ee88d44a7dcdc3ff44c"
+DEFAULT_SHA256SUM = "7f4a7cf0a2cd217444063fe2a4d800bc9d21ed609badc2ac20c0841d67166550"
 
 # Integrity in Subresource Integrity format.
 # This can be obtained by doing:
@@ -27,7 +28,7 @@ DEFAULT_SHA256SUM = "ad5040537537012b16ef6e1210a572b927c7cdc2b99d1ee88d44a7dcdc3
 # export DGST=384
 # curl -L "${URL}" -s | shasum -a "${DGST}" | cut -f1 -d' ' | xxd -r -p | base64 | (echo -ne "sha${DGST}-" && "cat" -)
 # ```
-DEFAULT_INTEGRITY = "sha384-kNAnBg4KPUHlBsNHNZGOjTRy3wlopJZcdtbuKCFnLoV1wB8dcSFWKag+wIoe+fQO"
+DEFAULT_INTEGRITY = "sha384-hjXxOdrMwTow3ji5CeIL5UchJHXQYTIU/MOZ4cG+TPqS0kQaEF9HsGianilGFIY+"
 
 # Format for URLs to GitHub archives.
 _URL_FMT = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v{version}.tar.gz"
@@ -36,9 +37,9 @@ _URL_FMT = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v{versi
 _STRIP_PREFIX_FMT = "tree-sitter-{version}"
 
 def tree_sitter_repositories():
-    # Release date: Sep 25 2025
-    _VERSION = "1.8.2"
-    _SHA256 = "6e78f0e57de26801f6f564fa7c4a48dc8b36873e416257a92bbb0937eeac8446"
+    # Release date: Dec 16 2025
+    _VERSION = "1.9.0"
+    _SHA256 = "3b5b49006181f5f8ff626ef8ddceaa95e9bb8ad294f7b5d7b11ea9f7ddaf8c59"
     maybe(
         http_archive,
         name = "bazel_skylib",
