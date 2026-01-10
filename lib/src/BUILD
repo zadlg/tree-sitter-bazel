@@ -1,18 +1,18 @@
-load("@tree-sitter-bazel//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
-
-# Copyright 2024 github.com/zadlg
+# Copyright 2026 github.com/zadlg
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
 #
-#      http:#www.apache.org/licenses/LICENSE-2.0
+#      http://www.apache.org/licenses/LICENSE-2.0
 #
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+load("@tree-sitter-bazel//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
+
 package(features = ["layering_check"])
 
 _API = "@tree-sitter-bazel//lib/include/tree_sitter:api"
@@ -44,11 +44,6 @@ cc_library(
 )
 
 cc_library(
-    name = "clock",
-    hdrs = map(["clock.h"]),
-)
-
-cc_library(
     name = "error_costs",
     hdrs = map(["error_costs.h"]),
 )
@@ -60,6 +55,11 @@ cc_library(
 
 cc_library(
     name = "point",
+    srcs = map(
+        [
+            "point.c",
+        ],
+    ),
     hdrs = map(["point.h"]),
     deps = [_API],
 )
@@ -75,11 +75,13 @@ cc_library(
 
 cc_library(
     name = "subtree",
-    srcs = map([
-        "subtree.c",
-        "language.h",
-        "parser.h",
-    ]),
+    srcs = map(
+        [
+            "subtree.c",
+            "language.h",
+            "parser.h",
+        ],
+    ),
     hdrs = map(["subtree.h"]),
     deps = [
         _API,
@@ -95,10 +97,12 @@ cc_library(
 
 cc_library(
     name = "tree_cursor",
-    srcs = map([
-        "tree_cursor.c",
-        "tree.h",
-    ]),
+    srcs = map(
+        [
+            "tree_cursor.c",
+            "tree.h",
+        ],
+    ),
     hdrs = map(["tree_cursor.h"]),
     deps = [
         ":subtree",
@@ -110,10 +114,12 @@ cc_library(
 
 cc_library(
     name = "get_changed_ranges",
-    srcs = map([
-        "get_changed_ranges.c",
-        "tree_cursor.h",
-    ]),
+    srcs = map(
+        [
+            "get_changed_ranges.c",
+            "tree_cursor.h",
+        ],
+    ),
     hdrs = map(["get_changed_ranges.h"]),
     deps = [
         ":error_costs",
@@ -125,11 +131,13 @@ cc_library(
 
 cc_library(
     name = "language",
-    srcs = map([
-        "language.c",
-        "parser.h",
-        "wasm_store.h",
-    ]),
+    srcs = map(
+        [
+            "language.c",
+            "parser.h",
+            "wasm_store.h",
+        ],
+    ),
     hdrs = map(["language.h"]),
     deps = [
         ":subtree",
@@ -149,10 +157,12 @@ cc_library(
 
 cc_library(
     name = "lexer",
-    srcs = map([
-        "lexer.c",
-        "parser.h",
-    ]),
+    srcs = map(
+        [
+            "lexer.c",
+            "parser.h",
+        ],
+    ),
     hdrs = map(["lexer.h"]),
     deps = [
         ":length",
@@ -222,7 +232,6 @@ cc_library(
         ":alloc",
         ":array",
         ":atomic",
-        ":clock",
         ":error_costs",
         ":get_changed_ranges",
         ":language",
@@ -245,7 +254,6 @@ cc_library(
         _API,
         ":alloc",
         ":array",
-        ":clock",
         ":language",
         ":point",
         ":tree_cursor",
@@ -255,10 +263,12 @@ cc_library(
 
 cc_library(
     name = "wasm_store",
-    srcs = map([
-        "wasm_store.c",
-        "parser.h",
-    ]),
+    srcs = map(
+        [
+            "wasm_store.c",
+            "parser.h",
+        ],
+    ),
     hdrs = map(["wasm_store.h"]),
     local_defines = use_defines_features(),
     deps = [_API],

@@ -1,4 +1,4 @@
-# Copyright 2025 github.com/zadlg
+# Copyright 2026 github.com/zadlg
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,12 +16,12 @@
 
 module(
     name = "tree-sitter-bazel",
-    version = "0.25.10",
+    version = "0.26.3",
     compatibility_level = 1,
     repo_name = "tree-sitter-bazel",
 )
 
-bazel_dep(name = "bazel_skylib", version = "1.8.2")
+bazel_dep(name = "bazel_skylib", version = "1.9.0")
 
 tree_sitter_source_code = use_extension(":extensions.bzl", "tree_sitter_source_code")
 use_repo(tree_sitter_source_code, "tree-sitter-raw")
