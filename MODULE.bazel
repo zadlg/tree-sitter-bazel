@@ -22,6 +22,7 @@ module(
 )
 
 bazel_dep(name = "bazel_skylib", version = "1.8.2")
+bazel_dep(name = "rules_shell", version = "0.6.1")
 
 tree_sitter_source_code = use_extension(":extensions.bzl", "tree_sitter_source_code")
 use_repo(tree_sitter_source_code, "tree-sitter-raw")
