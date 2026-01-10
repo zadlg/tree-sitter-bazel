@@ -49,6 +49,19 @@ def tree_sitter_repositories():
         ],
     )
 
+    # Release date: Sep 10 2025
+    _VERSION = "0.6.1"
+    _SHA256 = "e6b87c89bd0b27039e3af2c5da01147452f240f75d505f5b6880874f31036307"
+    maybe(
+        http_archive,
+        name = "rules_shell",
+        sha256 = _SHA256,
+        urls = [
+            "https://mirror.bazel.build/github.com/bazelbuild/rules_shell/releases/download/v{version}/rules_shell-v{version}.tar.gz".format(version = _VERSION),
+            "https://github.com/bazelbuild/rules_shell/releases/download/v{version}/rules_shell-v{version}.tar.gz".format(version = _VERSION),
+        ],
+    )
+
 def tree_sitter_build_http_archive_arguments(
         version = DEFAULT_VERSION,
         sha256 = DEFAULT_SHA256SUM,
