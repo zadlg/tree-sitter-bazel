@@ -64,6 +64,16 @@ def tree_sitter_repositories():
         ],
     )
 
+    # Release date: Dec 18 2025
+    _VERSION = "0.2.16"
+    _SHA256 = "458b658277ba51b4730ea7a2020efdf1c6dcadf7d30de72e37f4308277fa8c01"
+    maybe(
+        http_archive,
+        name = "rules_cc",
+        urls = ["https://github.com/bazelbuild/rules_cc/archive/refs/tags/{version}.tar.gz".format(version = _VERSION)],
+        sha256 = _SHA256,
+    )
+
 def tree_sitter_build_http_archive_arguments(
         version = DEFAULT_VERSION,
         sha256 = DEFAULT_SHA256SUM,

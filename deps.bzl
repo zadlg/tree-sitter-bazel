@@ -13,6 +13,8 @@
 # limitations under the License.
 
 load("@bazel_skylib//:workspace.bzl", "bazel_skylib_workspace")
+load("@rules_cc//cc:extensions.bzl", "compatibility_proxy_repo")
 
 def tree_sitter_dependencies():
     bazel_skylib_workspace()
+    compatibility_proxy_repo()
