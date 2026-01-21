@@ -1,3 +1,5 @@
+load("@rules_cc//cc:defs.bzl", "cc_library")
+
 # Copyright 2026 github.com/zadlg
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

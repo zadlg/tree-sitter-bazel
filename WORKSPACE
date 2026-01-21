@@ -23,3 +23,7 @@ tree_sitter_sources()
 load(":deps.bzl", "tree_sitter_dependencies")
 
 tree_sitter_dependencies()
+
+load(":cc_deps.bzl", "tree_sitter_rules_cc_dependencies")
+
+tree_sitter_rules_cc_dependencies()
