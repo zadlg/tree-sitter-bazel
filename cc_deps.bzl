@@ -1,5 +1,3 @@
-load("@rules_cc//cc:defs.bzl", "cc_library")
-
 # Copyright 2026 github.com/zadlg
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,14 +11,8 @@ load("@rules_cc//cc:defs.bzl", "cc_library")
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-load("@tree-sitter-bazel//:rules.bzl", "use_defines_features", map = "in_pkg_srcs")
 
-package(features = ["layering_check"])
+load("@rules_cc//cc:extensions.bzl", "compatibility_proxy_repo")
 
-cc_library(
-    name = "api",
-    hdrs = map(["api.h"]),
-    defines = use_defines_features(),
-    strip_include_prefix = "/lib/include/",
-    visibility = ["//visibility:public"],
-)
+def tree_sitter_rules_cc_dependencies():
+    compatibility_proxy_repo()

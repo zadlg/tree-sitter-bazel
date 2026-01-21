@@ -13,6 +13,7 @@
 # limitations under the License.
 
 load("@bazel_skylib//:bzl_library.bzl", "bzl_library")
+load("@rules_cc//cc:defs.bzl", "cc_library")
 load("@rules_shell//shell:sh_binary.bzl", "sh_binary")
 
 cc_library(
