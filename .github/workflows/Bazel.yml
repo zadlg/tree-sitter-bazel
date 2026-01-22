@@ -20,6 +20,7 @@ jobs:
           - 6.5.0
           - 7.4.0
           - 8.0.0
+          - 9.0.0
         compilation-mode: [dbg, fastbuild, opt]
         target:
           - macos-latest
@@ -48,7 +49,7 @@ jobs:
           bzlmod_flags="--${{ matrix.bzlmod }}"
           if [ "${{ matrix.bazel_version }}" == "8.0.0" ]; then
             if [ "${{ matrix.bzlmod }}" == "noenable_bzlmod" ]; then
-              bzlmod_flags="${bzlmod_flags} --enable_workspace"
+              bzlmod_flags="${bzlmod_flags} --enable_workspace --repositories_without_autoloads=cc_compatibility_proxy"
             fi
           fi
           bazel build --config=buildbuddy \

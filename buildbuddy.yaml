@@ -122,7 +122,7 @@ actions:
     user: "buildbuddy"
     bazel_commands:
       - "run --config buildbuddy //:set_bazel_version -- 8.0.0"
-      - "build -c dbg --noenable_bzlmod --enable_workspace --config buildbuddy //..."
+      - "build -c dbg --noenable_bzlmod --enable_workspace --repositories_without_autoloads=cc_compatibility_proxy --config buildbuddy //..."
 
   - name: "Bazel 8 fastbuild"
     triggers:
@@ -135,7 +135,7 @@ actions:
     user: "buildbuddy"
     bazel_commands:
       - "run --config buildbuddy //:set_bazel_version -- 8.0.0"
-      - "build -c fastbuild --noenable_bzlmod --enable_workspace --config buildbuddy //..."
+      - "build -c fastbuild --noenable_bzlmod --enable_workspace --repositories_without_autoloads=cc_compatibility_proxy --config buildbuddy //..."
 
   - name: "Bazel 8 opt"
     triggers:
@@ -148,4 +148,43 @@ actions:
     user: "buildbuddy"
     bazel_commands:
       - "run --config buildbuddy //:set_bazel_version -- 8.0.0"
+      - "build -c opt --noenable_bzlmod --enable_workspace --repositories_without_autoloads=cc_compatibility_proxy --config buildbuddy //..."
+  
+  - name: "Bazel 9 dbg"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 9.0.0"
+      - "build -c dbg --noenable_bzlmod --enable_workspace --config buildbuddy //..."
+
+  - name: "Bazel 9 fastbuild"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 9.0.0"
+      - "build -c fastbuild --noenable_bzlmod --enable_workspace --config buildbuddy //..."
+
+  - name: "Bazel 9 opt"
+    triggers:
+      push:
+        branches:
+          - "main"
+      pull_request:
+        branches:
+          - "*"
+    user: "buildbuddy"
+    bazel_commands:
+      - "run --config buildbuddy //:set_bazel_version -- 9.0.0"
       - "build -c opt --noenable_bzlmod --enable_workspace --config buildbuddy //..."
