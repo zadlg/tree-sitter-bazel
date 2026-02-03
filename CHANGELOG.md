@@ -1,3 +1,9 @@
+# v0.26.5 (Feb 3 2026)
+
+## [`tree-sitter`] sync
+
+[`v0.26.5`](https://github.com/tree-sitter/tree-sitter/releases/tag/v0.26.5)
+
 # v0.26.3 (Jan 10 2026)
 
 ## [`tree-sitter`] sync

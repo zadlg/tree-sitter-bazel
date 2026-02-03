@@ -20,7 +20,7 @@ load("//:version.bzl", "VERSION")
 DEFAULT_VERSION = VERSION
 
 # SHA-256 sum of the default tree-sitter version GitHub archive.
-DEFAULT_SHA256SUM = "7f4a7cf0a2cd217444063fe2a4d800bc9d21ed609badc2ac20c0841d67166550"
+DEFAULT_SHA256SUM = "8e012493b2103e0471d3aba8048b73bc1a3138132974e2fd8bfb89a63e62f478"
 
 # Integrity in Subresource Integrity format.
 # This can be obtained by doing:
@@ -28,7 +28,7 @@ DEFAULT_SHA256SUM = "7f4a7cf0a2cd217444063fe2a4d800bc9d21ed609badc2ac20c0841d671
 # export DGST=384
 # curl -L "${URL}" -s | shasum -a "${DGST}" | cut -f1 -d' ' | xxd -r -p | base64 | (echo -ne "sha${DGST}-" && "cat" -)
 # ```
-DEFAULT_INTEGRITY = "sha384-hjXxOdrMwTow3ji5CeIL5UchJHXQYTIU/MOZ4cG+TPqS0kQaEF9HsGianilGFIY+"
+DEFAULT_INTEGRITY = "sha384-UFn59au2/IMpAb2LqYOhZsHOhoFOttBAnZ5wPPPL4woryAnZyW/c1xEiiBobALr/"
 
 # Format for URLs to GitHub archives.
 _URL_FMT = "https://github.com/tree-sitter/tree-sitter/archive/refs/tags/v{version}.tar.gz"
